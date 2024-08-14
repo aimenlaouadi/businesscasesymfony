@@ -3,7 +3,6 @@
 namespace App\EventListener;
 
 use App\Entity\User;
-use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\ORM\Event\PrePersistEventArgs;
 use Doctrine\ORM\Events;
@@ -21,7 +20,7 @@ class HashUserPasswordListener
     {
         $entity = $event->getObject();
 
-        if (!$entity instanceof Users) {
+        if (!$entity instanceof User) {
             return;
         }
 
