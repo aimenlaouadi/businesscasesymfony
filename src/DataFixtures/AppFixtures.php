@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Product;
 use App\Entity\Service;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -19,6 +20,8 @@ class AppFixtures extends Fixture
             ['type' => 'Repassage', 'description' => 'Nous vous proposons un service de repassage...', 'price' => 13.00, 'images' => 'https://colblanc.com/wp-content/uploads/2019/02/Comment-nettoyer-son-blouson-en-cuir.jpg'],
         ];
 
+        $services = []; // Stocker les services pour les utiliser avec les produits
+
         foreach ($servicesData as $data) {
             $service = new Service();
             $service->setServiceType($data['type']);
@@ -26,9 +29,39 @@ class AppFixtures extends Fixture
             $service->setServicePrice($data['price']);
             $service->setImages($data['images']);
             $manager->persist($service);
+            $services[] = $service; // Stocker le service dans le tableau
         }
 
         $manager->flush(); // Sauvegarder les services dans la base de données
+
+        // Fixtures pour les produits
+        $productsData = [
+            ['name' => 'Jeans', 'descriptif' => 'Ceci est un jeans!', 'services' => ['Nettoyage pro', 'Repassage']],
+            ['name' => 'Chemise', 'descriptif' => 'Ceci est une chemise!', 'services' => ['Repassage']],
+            ['name' => 'Pantalon', 'descriptif' => 'Ceci est un pantalon!', 'services' => ['Nettoyage pro']],
+            ['name' => 'Basket', 'descriptif' => 'Ceci est des baskets!', 'services' => ['Blanchisserie']],
+            ['name' => 'Couette', 'descriptif' => 'Ceci est une couette!', 'services' => ['Blanchisserie']],
+        ];
+
+        foreach ($productsData as $data) {
+            $product = new Product();
+            $product->setProductName($data['name']);
+            $product->setProductDescription($data['descriptif']);
+
+            // Associer les services au produit
+            foreach ($data['services'] as $serviceName) {
+                // Rechercher le service correspondant par nom
+                foreach ($services as $service) {
+                    if ($service->getServiceType() === $serviceName) {
+                        $product->addService($service); // Associer le service au produit
+                    }
+                }
+            }
+
+            $manager->persist($product);
+        }
+
+        $manager->flush(); // Sauvegarder les produits et leurs associations avec les services dans la base de données
 
         // Fixtures pour les utilisateurs
         $user1 = new User();
