@@ -1,11 +1,12 @@
 <?php
-
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ApiResource(normalizationContext: ["groups"=>["products:read"]])]
@@ -25,10 +26,16 @@ class Product
     #[Groups('products:read')]
     private ?string $product_description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'products')]
-    #[Groups('products:read')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Category $category = null;
+    /**
+     * @var Collection<int, ServiceProduct>
+     */
+    #[ORM\OneToMany(targetEntity: ServiceProduct::class, mappedBy: 'product')]
+    private Collection $services; // Renommé de Service à services
+
+    public function __construct()
+    {
+        $this->services = new ArrayCollection(); // Renommé de Service à services
+    }
 
     public function getId(): ?int
     {
@@ -59,14 +66,33 @@ class Product
         return $this;
     }
 
-    public function getCategory(): ?Category
+
+    /**
+     * @return Collection<int, ServiceProduct>
+     */
+    public function getServices(): Collection // Renommé de getService à getServices
     {
-        return $this->category;
+        return $this->services;
     }
 
-    public function setCategory(?Category $category): static
+    public function addService(ServiceProduct $service): static
     {
-        $this->category = $category;
+        if (!$this->services->contains($service)) { // Renommé de Service à services
+            $this->services->add($service); // Renommé de Service à services
+            $service->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeService(ServiceProduct $service): static
+    {
+        if ($this->services->removeElement($service)) { // Renommé de Service à services
+            // set the owning side to null (unless already changed)
+            if ($service->getProduct() === $this) {
+                $service->setProduct(null);
+            }
+        }
 
         return $this;
     }
