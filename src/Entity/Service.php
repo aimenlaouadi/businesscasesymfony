@@ -1,37 +1,39 @@
 <?php
-
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use App\Repository\ServiceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Metadata\ApiResource;
 
-#[ORM\Entity(repositoryClass: ServiceRepository::class)]
-#[ApiResource(normalizationContext: ["groups" => ["services:read"]])]
+#[ORM\Entity]
+#[ApiResource]
 class Service
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups('services:read')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 70)]
-    #[Groups('services:read')]
+    #[ORM\Column(length: 255)]
     private ?string $service_type = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups('services:read')]
     private ?float $service_price = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups('services:read')]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups('services:read')]
     private ?string $images = null;
+
+    #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'services')]
+    private Collection $products;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -46,7 +48,6 @@ class Service
     public function setServiceType(string $service_type): static
     {
         $this->service_type = $service_type;
-
         return $this;
     }
 
@@ -58,7 +59,6 @@ class Service
     public function setServicePrice(?float $service_price): static
     {
         $this->service_price = $service_price;
-
         return $this;
     }
 
@@ -70,7 +70,6 @@ class Service
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
@@ -82,6 +81,32 @@ class Service
     public function setImages(string $images): static
     {
         $this->images = $images;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): static
+    {
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+            $product->addService($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): static
+    {
+        if ($this->products->removeElement($product)) {
+            $product->removeService($this);
+        }
 
         return $this;
     }

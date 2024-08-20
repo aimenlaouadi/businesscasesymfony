@@ -6,10 +6,10 @@ use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
-#[ApiResource(normalizationContext: ["groups"=>["products:read"]])]
+#[ApiResource(normalizationContext: ["groups" => ["products:read"]])]
 class Product
 {
     #[ORM\Id]
@@ -26,12 +26,13 @@ class Product
     #[Groups('products:read')]
     private ?string $product_description = null;
 
-
-    private Collection $services; // Renommé de Service à services
+    #[ORM\ManyToMany(targetEntity: Service::class, inversedBy: 'products')]
+    #[Groups('products:read')]
+    private Collection $services;
 
     public function __construct()
     {
-        $this->services = new ArrayCollection(); // Renommé de Service à services
+        $this->services = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -47,7 +48,6 @@ class Product
     public function setProductName(string $product_name): static
     {
         $this->product_name = $product_name;
-
         return $this;
     }
 
@@ -59,34 +59,31 @@ class Product
     public function setProductDescription(string $product_description): static
     {
         $this->product_description = $product_description;
-
         return $this;
     }
 
-
-  
-    public function getServices(): Collection // Renommé de getService à getServices
+    /**
+     * @return Collection<int, Service>
+     */
+    public function getServices(): Collection
     {
         return $this->services;
     }
 
-    public function addService($service): static
+    public function addService(Service $service): static
     {
-        if (!$this->services->contains($service)) { // Renommé de Service à services
-            $this->services->add($service); // Renommé de Service à services
-            $service->setProduct($this);
+        if (!$this->services->contains($service)) {
+            $this->services->add($service);
+            $service->addProduct($this); // Si vous avez une méthode addProduct dans l'entité Service
         }
 
         return $this;
     }
 
-    public function removeService($service): static
+    public function removeService(Service $service): static
     {
-        if ($this->services->removeElement($service)) { // Renommé de Service à services
-            // set the owning side to null (unless already changed)
-            if ($service->getProduct() === $this) {
-                $service->setProduct(null);
-            }
+        if ($this->services->removeElement($service)) {
+            $service->removeProduct($this); // Si vous avez une méthode removeProduct dans l'entité Service
         }
 
         return $this;
