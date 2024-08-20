@@ -25,8 +25,7 @@ class Items
     #[Groups('items:read')]
     private ?int $quantite = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Items')]
-    private ?ServiceProduct $serviceProduct = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'items')]
     private ?StatusItems $statusItems = null;
@@ -62,18 +61,6 @@ class Items
     public function setQuantite(int $quantite): static
     {
         $this->quantite = $quantite;
-
-        return $this;
-    }
-
-    public function getServiceProduct(): ?ServiceProduct
-    {
-        return $this->serviceProduct;
-    }
-
-    public function setServiceProduct(?ServiceProduct $serviceProduct): static
-    {
-        $this->serviceProduct = $serviceProduct;
 
         return $this;
     }

@@ -19,7 +19,6 @@ class ServiceRepository extends ServiceEntityRepository
     public function findAllWithProductsAndItems(): array
 {
     return $this->createQueryBuilder('s')
-        ->leftJoin('s.serviceProducts', 'sp')
         ->addSelect('sp')
         ->leftJoin('sp.product', 'p')
         ->addSelect('p')

@@ -26,10 +26,7 @@ class Product
     #[Groups('products:read')]
     private ?string $product_description = null;
 
-    /**
-     * @var Collection<int, ServiceProduct>
-     */
-    #[ORM\OneToMany(targetEntity: ServiceProduct::class, mappedBy: 'product')]
+
     private Collection $services; // Renommé de Service à services
 
     public function __construct()
@@ -67,15 +64,13 @@ class Product
     }
 
 
-    /**
-     * @return Collection<int, ServiceProduct>
-     */
+  
     public function getServices(): Collection // Renommé de getService à getServices
     {
         return $this->services;
     }
 
-    public function addService(ServiceProduct $service): static
+    public function addService($service): static
     {
         if (!$this->services->contains($service)) { // Renommé de Service à services
             $this->services->add($service); // Renommé de Service à services
@@ -85,7 +80,7 @@ class Product
         return $this;
     }
 
-    public function removeService(ServiceProduct $service): static
+    public function removeService($service): static
     {
         if ($this->services->removeElement($service)) { // Renommé de Service à services
             // set the owning side to null (unless already changed)
