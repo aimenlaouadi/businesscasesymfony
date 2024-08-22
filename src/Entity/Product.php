@@ -30,6 +30,10 @@ class Product
     #[Groups('products:read')]
     private Collection $services;
 
+    #[ORM\Column]
+    #[Groups('products:read')]
+    private ?float $price = null;
+
     public function __construct()
     {
         $this->services = new ArrayCollection();
@@ -85,6 +89,18 @@ class Product
         if ($this->services->removeElement($service)) {
             $service->removeProduct($this); // Si vous avez une méthode removeProduct dans l'entité Service
         }
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): static
+    {
+        $this->price = $price;
 
         return $this;
     }

@@ -36,16 +36,17 @@ class AppFixtures extends Fixture
 
         // Fixtures pour les produits
         $productsData = [
-            ['name' => 'Jeans', 'descriptif' => 'Ceci est un jeans!', 'services' => ['Nettoyage pro', 'Repassage']],
-            ['name' => 'Chemise', 'descriptif' => 'Ceci est une chemise!', 'services' => ['Repassage']],
-            ['name' => 'Pantalon', 'descriptif' => 'Ceci est un pantalon!', 'services' => ['Nettoyage pro']],
-            ['name' => 'Basket', 'descriptif' => 'Ceci est des baskets!', 'services' => ['Blanchisserie']],
-            ['name' => 'Couette', 'descriptif' => 'Ceci est une couette!', 'services' => ['Blanchisserie']],
+            ['name' => 'Jeans', 'descriptif' => 'Ceci est un jeans!','price' => 10.00, 'services' => ['Nettoyage pro', 'Repassage']],
+            ['name' => 'Chemise', 'descriptif' => 'Ceci est une chemise!','price' => 11.00, 'services' => ['Repassage']],
+            ['name' => 'Pantalon', 'descriptif' => 'Ceci est un pantalon!','price' => 12.00, 'services' => ['Nettoyage pro']],
+            ['name' => 'Basket', 'descriptif' => 'Ceci est des baskets!','price' => 12.00, 'services' => ['Blanchisserie']],
+            ['name' => 'Couette', 'descriptif' => 'Ceci est une couette!','price' => 13.00, 'services' => ['Blanchisserie']],
         ];
 
         foreach ($productsData as $data) {
             $product = new Product();
             $product->setProductName($data['name']);
+            $product->setPrice($data['price']);
             $product->setProductDescription($data['descriptif']);
 
             // Associer les services au produit

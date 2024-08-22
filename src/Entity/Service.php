@@ -5,29 +5,36 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
-#[ApiResource]
+#[ApiResource(normalizationContext: ["groups" => ["service:read"]])]
 class Service
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['service:read', 'product:read'])] // Ajouté pour inclure l'ID dans les réponses de produit et service
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['service:read', 'product:read'])] // Ajouté pour inclure dans les réponses de produit et service
     private ?string $service_type = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['service:read', 'product:read'])] // Ajouté pour inclure dans les réponses de produit et service
     private ?float $service_price = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['service:read', 'product:read'])] // Ajouté pour inclure dans les réponses de produit et service
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['service:read', 'product:read'])] // Ajouté pour inclure dans les réponses de produit et service
     private ?string $images = null;
 
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'services')]
+    #[Groups('service:read')] // Ajouté pour inclure la liste des produits associés dans les réponses de service
     private Collection $products;
 
     public function __construct()
@@ -96,7 +103,7 @@ class Service
     {
         if (!$this->products->contains($product)) {
             $this->products->add($product);
-            $product->addService($this);
+            $product->addService($this); // Assurer la relation bidirectionnelle
         }
 
         return $this;
@@ -105,7 +112,7 @@ class Service
     public function removeProduct(Product $product): static
     {
         if ($this->products->removeElement($product)) {
-            $product->removeService($this);
+            $product->removeService($this); // Assurer la relation bidirectionnelle
         }
 
         return $this;
