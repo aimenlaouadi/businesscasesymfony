@@ -5,36 +5,51 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ItemsRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ItemsRepository::class)]
-#[ApiResource(normalizationContext: ["groups" => ["items:read"]])]
+#[ApiResource(
+    normalizationContext: ['groups' => ['items:read']],
+    denormalizationContext: ['groups' => ['items:write']]
+)]
 class Items
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups('items:read')]
+    #[Groups(['items:read', 'items:write'])]
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups('items:read')]
+    #[Groups(['items:read', 'items:write'])]
     private ?float $price = null;
 
     #[ORM\Column]
-    #[Groups('items:read')]
+    #[Groups(['items:read', 'items:write'])]
     private ?int $quantite = null;
 
-
-
     #[ORM\ManyToOne(inversedBy: 'items')]
+    #[ORM\JoinColumn(nullable: true)] // Ajout de JoinColumn pour éviter les erreurs de clé étrangère
+    #[Groups(['items:read', 'items:write'])]
     private ?StatusItems $statusItems = null;
 
-    #[ORM\ManyToOne(inversedBy: 'items')]
+    #[ORM\ManyToOne(inversedBy: 'items', cascade: ['persist'], fetch: 'EAGER')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['items:read', 'items:write'])]
     private ?Order $orderItems = null;
 
+
+
     #[ORM\ManyToOne(inversedBy: 'items')]
-    private ?User $user = null;
+    #[Groups(['items:read', 'items:write'])]
+    private ?Service $service = null;
+
+    #[ORM\ManyToOne(inversedBy: 'items')]
+    #[Groups(['items:read', 'items:write'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Product $product = null;
+
+    // Getters et Setters
 
     public function getId(): ?int
     {
@@ -46,7 +61,7 @@ class Items
         return $this->price;
     }
 
-    public function setPrice(float $price): static
+    public function setPrice(?float $price): static
     {
         $this->price = $price;
 
@@ -58,7 +73,7 @@ class Items
         return $this->quantite;
     }
 
-    public function setQuantite(int $quantite): static
+    public function setQuantite(?int $quantite): static
     {
         $this->quantite = $quantite;
 
@@ -89,14 +104,28 @@ class Items
         return $this;
     }
 
-    public function getUser(): ?User
+ 
+
+    public function getService(): ?Service
     {
-        return $this->user;
+        return $this->service;
     }
 
-    public function setUser(?User $user): static
+    public function setService(?Service $service): static
     {
-        $this->user = $user;
+        $this->service = $service;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): static
+    {
+        $this->product = $product;
 
         return $this;
     }

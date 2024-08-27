@@ -209,30 +209,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Items>
      */
-    public function getItems(): Collection
-    {
-        return $this->items;
-    }
 
-    public function addItem(Items $item): static
-    {
-        if (!$this->items->contains($item)) {
-            $this->items->add($item);
-            $item->setUser($this);
-        }
 
-        return $this;
-    }
 
-    public function removeItem(Items $item): static
-    {
-        if ($this->items->removeElement($item)) {
-            // set the owning side to null (unless already changed)
-            if ($item->getUser() === $this) {
-                $item->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 }
