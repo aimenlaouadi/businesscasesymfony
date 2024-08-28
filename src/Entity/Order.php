@@ -13,32 +13,31 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ApiResource(
     normalizationContext: ['groups' => ['order:read']],
-    denormalizationContext: ['groups' => ['order:write']]
 )]
-
+#[ORM\Table(name: "`order`")]
 class Order
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['order:read', 'order:write'])]
+    #[Groups(['order:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['order:read', 'order:write'])]
-    private ?string $list_selection = null;
+    #[Groups(['order:read'])]
+    private ?string $listSelection = null; // Renommé pour être plus clair
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Groups(['order:read', 'order:write'])]
+    #[Groups(['order:read'])]
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\OneToMany(mappedBy: 'orderItems', targetEntity: Items::class, cascade: ['persist', 'remove'], fetch: 'EAGER')]
-    #[Groups(['order:read', 'order:write'])]
+    #[ORM\OneToMany(mappedBy: 'orderItems', targetEntity: Items::class, cascade: ['persist', 'remove'])]
+    #[Groups(['order:read'])]
     private Collection $items;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['order:read', 'order:write'])]
+    #[Groups(['order:read'])]
     private ?User $user = null;
 
     public function __construct()
@@ -53,12 +52,12 @@ class Order
 
     public function getListSelection(): ?string
     {
-        return $this->list_selection;
+        return $this->listSelection;
     }
 
-    public function setListSelection(string $list_selection): static
+    public function setListSelection(string $listSelection): static
     {
-        $this->list_selection = $list_selection;
+        $this->listSelection = $listSelection;
 
         return $this;
     }
@@ -87,7 +86,7 @@ class Order
     {
         if (!$this->items->contains($item)) {
             $this->items->add($item);
-            $item->setOrderItems($this);
+            $item->setOrderItems($this); // Assurez-vous que setOrderItems() existe dans Items
         }
 
         return $this;
@@ -96,8 +95,9 @@ class Order
     public function removeItem(Items $item): static
     {
         if ($this->items->removeElement($item)) {
+            // set the owning side to null (unless already changed)
             if ($item->getOrderItems() === $this) {
-                $item->setOrderItems(null);
+                $item->setOrderItems(null); // Assurez-vous que setOrderItems() existe dans Items
             }
         }
 

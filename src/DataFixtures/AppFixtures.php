@@ -7,9 +7,17 @@ use App\Entity\Service;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private UserPasswordHasherInterface $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    {
+        $this->passwordHasher = $passwordHasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
         // Fixtures pour les services
@@ -36,11 +44,11 @@ class AppFixtures extends Fixture
 
         // Fixtures pour les produits
         $productsData = [
-            ['name' => 'Jeans', 'descriptif' => 'Ceci est un jeans!','price' => 10.00, 'services' => ['Nettoyage pro', 'Repassage']],
-            ['name' => 'Chemise', 'descriptif' => 'Ceci est une chemise!','price' => 11.00, 'services' => ['Repassage']],
-            ['name' => 'Pantalon', 'descriptif' => 'Ceci est un pantalon!','price' => 12.00, 'services' => ['Nettoyage pro']],
-            ['name' => 'Basket', 'descriptif' => 'Ceci est des baskets!','price' => 12.00, 'services' => ['Blanchisserie']],
-            ['name' => 'Couette', 'descriptif' => 'Ceci est une couette!','price' => 13.00, 'services' => ['Blanchisserie']],
+            ['name' => 'Jeans', 'descriptif' => 'Ceci est un jeans!', 'price' => 10.00, 'services' => ['Nettoyage pro', 'Repassage']],
+            ['name' => 'Chemise', 'descriptif' => 'Ceci est une chemise!', 'price' => 11.00, 'services' => ['Repassage']],
+            ['name' => 'Pantalon', 'descriptif' => 'Ceci est un pantalon!', 'price' => 12.00, 'services' => ['Nettoyage pro']],
+            ['name' => 'Basket', 'descriptif' => 'Ceci est des baskets!', 'price' => 12.00, 'services' => ['Blanchisserie']],
+            ['name' => 'Couette', 'descriptif' => 'Ceci est une couette!', 'price' => 13.00, 'services' => ['Blanchisserie']],
         ];
 
         foreach ($productsData as $data) {
@@ -48,6 +56,7 @@ class AppFixtures extends Fixture
             $product->setProductName($data['name']);
             $product->setPrice($data['price']);
             $product->setProductDescription($data['descriptif']);
+            $product->setQuantity(0); // Initialiser la quantité à 0 par défaut
 
             // Associer les services au produit
             foreach ($data['services'] as $serviceName) {
@@ -62,26 +71,26 @@ class AppFixtures extends Fixture
             $manager->persist($product);
         }
 
-        $manager->flush(); // Sauvegarder les produits et leurs associations avec les services dans la base de données
+        $manager->flush(); 
 
         // Fixtures pour les utilisateurs
         $user1 = new User();
         $user1->setUsername('Utilisateur');
-        $user1->setPassword('test1'); // Pensez à encoder le mot de passe en utilisant un PasswordHasher dans un vrai projet
+        $user1->setPassword($this->passwordHasher->hashPassword($user1, 'test1')); 
         $manager->persist($user1);
 
         $user2 = new User();
         $user2->setUsername('Admin');
-        $user2->setPassword('test2'); // Pensez à encoder le mot de passe
+        $user2->setPassword($this->passwordHasher->hashPassword($user2, 'test2')); 
         $user2->setRoles(['ROLE_ADMIN']);
         $manager->persist($user2);
 
         $user3 = new User();
         $user3->setUsername('SuperAdmin');
-        $user3->setPassword('test3'); // Pensez à encoder le mot de passe
+        $user3->setPassword($this->passwordHasher->hashPassword($user3, 'test3'));
         $user3->setRoles(['ROLE_SUPER_ADMIN']);
         $manager->persist($user3);
 
-        $manager->flush(); // Sauvegarder les utilisateurs dans la base de données
-    }
+        $manager->flush(); 
+}
 }

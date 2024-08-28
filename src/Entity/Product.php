@@ -40,6 +40,9 @@ class Product
     #[ORM\OneToMany(targetEntity: Items::class, mappedBy: 'Product')]
     private Collection $items;
 
+    #[ORM\Column(type: 'integer', options: ['default' => 0])]
+    private int $quantity = 0;
+
     public function __construct()
     {
         $this->services = new ArrayCollection();
@@ -138,6 +141,18 @@ class Product
                 $item->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(int $quantity): static
+    {
+        $this->quantity = $quantity;
 
         return $this;
     }
