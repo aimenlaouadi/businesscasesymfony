@@ -23,9 +23,7 @@ class Order
     #[Groups(['order:read'])]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    #[Groups(['order:read'])]
-    private ?string $listSelection = null; // Renommé pour être plus clair
+
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Groups(['order:read'])]
@@ -50,17 +48,7 @@ class Order
         return $this->id;
     }
 
-    public function getListSelection(): ?string
-    {
-        return $this->listSelection;
-    }
-
-    public function setListSelection(string $listSelection): static
-    {
-        $this->listSelection = $listSelection;
-
-        return $this;
-    }
+ 
 
     public function getDate(): ?\DateTimeInterface
     {

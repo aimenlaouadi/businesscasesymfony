@@ -43,6 +43,9 @@ class Product
     #[ORM\Column(type: 'integer', options: ['default' => 0])]
     private int $quantity = 0;
 
+    #[ORM\Column(length: 255)]
+    private ?string $images = null;
+
     public function __construct()
     {
         $this->services = new ArrayCollection();
@@ -153,6 +156,18 @@ class Product
     public function setQuantity(int $quantity): static
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getImages(): ?string
+    {
+        return $this->images;
+    }
+
+    public function setImages(string $images): static
+    {
+        $this->images = $images;
 
         return $this;
     }
