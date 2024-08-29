@@ -22,10 +22,10 @@ class AppFixtures extends Fixture
     {
         // Fixtures pour les services
         $servicesData = [
-            ['type' => 'Nettoyage pro', 'description' => 'Nous détachons et nettoyons tous vos vêtements...', 'price' => 10.00, 'images' => 'https://www.delcourt.fr/img/cms/Blog/nettoyer-d%C3%A9tacher-v%C3%AAtements-travail-delcourt-fr.jpg'],
-            ['type' => 'Blanchisserie', 'description' => 'Retrouvez vos couettes, draps et linge de maison...', 'price' => 15.00, 'images' => 'https://lh4.googleusercontent.com/proxy/CPEuNL6WktEIGSYuze15KnG_efVtdUdLYdySOwGYxv44jNz8VA-sFE-R9X49F5jcy6ktSXOAisoN2nqyFnbBRohJ0wRUAzAIRh9q2xOf1dUpS-4'],
-            ['type' => 'Rénovation cuir', 'description' => 'Détachage, nettoyage, re-coloration...', 'price' => 13.00, 'images' => 'https://colblanc.com/wp-content/uploads/2019/02/Comment-nettoyer-son-blouson-en-cuir.jpg'],
-            ['type' => 'Repassage', 'description' => 'Nous vous proposons un service de repassage...', 'price' => 13.00, 'images' => 'https://colblanc.com/wp-content/uploads/2019/02/Comment-nettoyer-son-blouson-en-cuir.jpg'],
+            ['type' => 'Nettoyage pro', 'description' => 'Nous détachons et nettoyons tous vos vêtements...', 'price' => 10.00, 'images' => '/images/nettoyage.jpg'],
+            ['type' => 'Blanchisserie', 'description' => 'Retrouvez vos couettes, draps et linge de maison...', 'price' => 15.00, 'images' => '/images/blanchisserie.jpg'],
+            ['type' => 'Rénovation cuir', 'description' => 'Détachage, nettoyage, re-coloration...', 'price' => 13.00, 'images' => '/images/renov-cuir.jpg'],
+            ['type' => 'Repassage', 'description' => 'Nous vous proposons un service de repassage...', 'price' => 13.00, 'images' => '/images/repassage.jpg'],
         ];
 
         $services = []; // Stocker les services pour les utiliser avec les produits
