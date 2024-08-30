@@ -25,7 +25,7 @@ class AppFixtures extends Fixture
         $servicesData = [
             ['type' => 'Nettoyage pro', 'description' => 'Nous détachons et nettoyons tous vos vêtements...', 'price' => 10.00, 'images' => 'nettoyage.jpg'],
             ['type' => 'Blanchisserie', 'description' => 'Retrouvez vos couettes, draps et linge de maison...', 'price' => 15.00, 'images' => 'blanchisserie.jpg'],
-            ['type' => 'Rénovation cuir', 'description' => 'Détachage, nettoyage, re-coloration...', 'price' => 13.00, 'images' => 'renov-cuir.jpg'],
+            ['type' => 'Rénovation cuir', 'description' => 'Détachage, nettoyage, re-coloration...', 'price' => 13.00, 'images' => 'renov-cuir.webp'],
             ['type' => 'Repassage', 'description' => 'Nous vous proposons un service de repassage...', 'price' => 13.00, 'images' => 'repassage.jpg'],
         ];
 
@@ -47,9 +47,9 @@ class AppFixtures extends Fixture
         $productsData = [
             ['name' => 'Jeans', 'descriptif' => 'Ceci est un jeans!', 'price' => 10.00,'images' =>'jeans.webp', 'services' => ['Nettoyage pro', 'Repassage']],
             ['name' => 'Chemise', 'descriptif' => 'Ceci est une chemise!', 'price' => 11.00,'images' =>'chemise.webp', 'services' => ['Repassage']],
-            ['name' => 'Pantalon', 'descriptif' => 'Ceci est un pantalon!', 'price' => 12.00,'images' =>'nettoyage.jpg', 'services' => ['Nettoyage pro']],
-            ['name' => 'Basket', 'descriptif' => 'Ceci est des baskets!', 'price' => 12.00,'images' =>'basket.jpg', 'services' => ['Blanchisserie']],
-            ['name' => 'Couette', 'descriptif' => 'Ceci est une couette!', 'price' => 13.00,'images' =>'couette.jpg', 'services' => ['Blanchisserie']],
+            ['name' => 'Pantalon', 'descriptif' => 'Ceci est un pantalon!', 'price' => 12.00,'images' =>'pantalon.webp', 'services' => ['Nettoyage pro']],
+            ['name' => 'Basket', 'descriptif' => 'Ceci est des baskets!', 'price' => 12.00,'images' =>'basket.webp', 'services' => ['Blanchisserie']],
+            ['name' => 'Couette', 'descriptif' => 'Ceci est une couette!', 'price' => 13.00,'images' =>'couette.webp', 'services' => ['Blanchisserie']],
         ];
 
         foreach ($productsData as $data) {
@@ -58,7 +58,7 @@ class AppFixtures extends Fixture
             $product->setPrice($data['price']);
             $product->setProductDescription($data['descriptif']);
             $product->setImages($data['images']);
-            $product->setQuantity(0); // Initialiser la quantité à 0 par défaut
+            $product->setQuantity(0);
 
             // Associer les services au produit
             foreach ($data['services'] as $serviceName) {
