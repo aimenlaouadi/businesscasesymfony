@@ -21,9 +21,7 @@ class Service
     #[Groups(['service:read', 'product:read'])] // Ajouté pour inclure dans les réponses de produit et service
     private ?string $service_type = null;
 
-    #[ORM\Column(nullable: true)]
-    #[Groups(['service:read', 'product:read'])] // Ajouté pour inclure dans les réponses de produit et service
-    private ?float $service_price = null;
+
 
     #[ORM\Column(length: 255)]
     #[Groups(['service:read', 'product:read'])] // Ajouté pour inclure dans les réponses de produit et service
@@ -62,17 +60,6 @@ class Service
     public function setServiceType(string $service_type): static
     {
         $this->service_type = $service_type;
-        return $this;
-    }
-
-    public function getServicePrice(): ?float
-    {
-        return $this->service_price;
-    }
-
-    public function setServicePrice(?float $service_price): static
-    {
-        $this->service_price = $service_price;
         return $this;
     }
 

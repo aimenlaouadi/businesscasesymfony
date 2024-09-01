@@ -23,10 +23,10 @@ class AppFixtures extends Fixture
     {
         // Fixtures pour les services
         $servicesData = [
-            ['type' => 'Nettoyage pro', 'description' => 'Nous détachons et nettoyons tous vos vêtements...', 'price' => 10.00, 'images' => 'nettoyage.jpg'],
-            ['type' => 'Blanchisserie', 'description' => 'Retrouvez vos couettes, draps et linge de maison...', 'price' => 15.00, 'images' => 'blanchisserie.jpg'],
-            ['type' => 'Rénovation cuir', 'description' => 'Détachage, nettoyage, re-coloration...', 'price' => 13.00, 'images' => 'renov-cuir.webp'],
-            ['type' => 'Repassage', 'description' => 'Nous vous proposons un service de repassage...', 'price' => 13.00, 'images' => 'repassage.jpg'],
+            ['type' => 'Nettoyage pro', 'description' => 'Nous détachons et nettoyons tous vos vêtements...','images' => 'nettoyage.jpg'],
+            ['type' => 'Blanchisserie', 'description' => 'Retrouvez vos couettes, draps et linge de maison...','images' => 'blanchisserie.jpg'],
+            ['type' => 'Rénovation cuir', 'description' => 'Détachage, nettoyage, re-coloration...','images' => 'renov-cuir.webp'],
+            ['type' => 'Repassage', 'description' => 'Nous vous proposons un service de repassage...','images' => 'repassage.jpg'],
         ];
 
         $services = []; // Stocker les services pour les utiliser avec les produits
@@ -35,7 +35,6 @@ class AppFixtures extends Fixture
             $service = new Service();
             $service->setServiceType($data['type']);
             $service->setDescription($data['description']);
-            $service->setServicePrice($data['price']);
             $service->setImages($data['images']);
             $manager->persist($service);
             $services[] = $service; // Stocker le service dans le tableau
