@@ -18,11 +18,12 @@ class OrderCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
-        $viewAction = Action::new('view', 'View')
-            ->linkToCrudAction('detail');
-
+        
+        
         return $actions
-            ->add(Crud::PAGE_INDEX, $viewAction)
-            ->add(Crud::PAGE_DETAIL, $viewAction);
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)
+            
+            ->disable(Action::EDIT,Action::NEW);
+
     }
 }

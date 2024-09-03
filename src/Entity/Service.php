@@ -141,4 +141,7 @@ class Service
 
         return $this;
     }
+    public function __tostring(): string{
+        return $this->service_type;
+    }
 }
