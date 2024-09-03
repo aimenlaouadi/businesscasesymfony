@@ -3,10 +3,11 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Order;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+
 
 class OrderCrudController extends AbstractCrudController
 {
@@ -15,14 +16,13 @@ class OrderCrudController extends AbstractCrudController
         return Order::class;
     }
 
-    /*
-    public function configureFields(string $pageName): iterable
+    public function configureActions(Actions $actions): Actions
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
+        $viewAction = Action::new('view', 'View')
+            ->linkToCrudAction('detail');
+
+        return $actions
+            ->add(Crud::PAGE_INDEX, $viewAction)
+            ->add(Crud::PAGE_DETAIL, $viewAction);
     }
-    */
 }

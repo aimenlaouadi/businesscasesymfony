@@ -27,7 +27,7 @@ class UserCrudController extends AbstractCrudController
             TextField::new('username', 'Nom d\'utilisateur'),
             TextField::new('password', 'Mot de passe')
             ->setFormType(PasswordType::class)
-            ->onlyOnForms(),
+            ->onlyWhenCreating(),
 
 
             // Champ pour gérer les rôles de l'utilisateur
