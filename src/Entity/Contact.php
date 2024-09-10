@@ -10,36 +10,30 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 #[ApiResource(
-    normalizationContext: ['groups' => ['contact:read']],
-    denormalizationContext: ['groups' => ['contact:write']]
+
 )]
 class Contact
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups('contact:read')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
-    #[Groups(['contact:read', 'contact:write'])]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
-    #[Groups(['contact:read', 'contact:write'])]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     #[Assert\Email]
-    #[Groups(['contact:read', 'contact:write'])]
     private ?string $email = null;
 
     #[ORM\Column(type: 'text')]
     #[Assert\NotBlank]
-    #[Groups(['contact:read', 'contact:write'])]
     private ?string $message = null;
 
     public function getId(): ?int
