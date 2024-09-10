@@ -113,9 +113,15 @@ class AppFixtures extends Fixture
         $manager->persist($user4);
 
 
-        $status = new StatusItems();
-        $status->setType('En Cours');
-        $manager->persist($status);
+        $status = [
+            'En Cours','En attente de validation', 'Validé'
+        ];
+
+        foreach ($status as $onestatus) {
+            $status = new StatusItems();
+            $status->setType($onestatus);
+            $manager->persist($status);
+        }    
 
 
         $manager->flush(); 
