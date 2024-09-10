@@ -50,6 +50,9 @@ class Items
     #[ORM\JoinColumn(nullable: false)]
     private ?Product $product = null;
 
+    #[ORM\ManyToOne(inversedBy: 'items')]
+    private ?Employee $employee = null;
+
     // Getters et Setters
 
     public function getId(): ?int
@@ -127,6 +130,18 @@ class Items
     public function setProduct(?Product $product): static
     {
         $this->product = $product;
+
+        return $this;
+    }
+
+    public function getEmployee(): ?Employee
+    {
+        return $this->employee;
+    }
+
+    public function setEmployee(?Employee $employee): static
+    {
+        $this->employee = $employee;
 
         return $this;
     }

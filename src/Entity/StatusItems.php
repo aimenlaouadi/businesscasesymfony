@@ -31,6 +31,10 @@ class StatusItems
         $this->items = new ArrayCollection();
     }
 
+    public function __tostring(){
+        return $this->type;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

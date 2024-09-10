@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Employee;
 use App\Entity\Product;
 use App\Entity\Service;
 use App\Entity\StatusItems;
@@ -123,6 +124,28 @@ class AppFixtures extends Fixture
             $manager->persist($status);
         }    
 
+          $employees = [
+        [
+            'Username' => 'nabil',
+            'Password' => 'nabil',
+            'Position' => 'employé',  
+        ],
+        [
+            'Username' => 'younes',
+            'Password' => 'younes',
+            'Position' => 'Responsable',  
+        ],
+    ];
+
+
+        foreach ($employees as $oneemployee) {
+            $employees = new Employee();
+            $employees->setUsername($oneemployee['Username']);
+            $employees->setPassword($oneemployee['Password']);
+            $employees->setPosition($oneemployee['Position']);
+            $employees->setRoles(['ROLE_EMPLOYEE']);
+            $manager->persist($employees);
+        }
 
         $manager->flush(); 
 
