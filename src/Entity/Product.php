@@ -44,6 +44,7 @@ class Product
     private int $quantity = 0;
 
     #[ORM\Column(length: 255)]
+    #[Groups('products:read')]
     private ?string $images = null;
 
     public function __construct()

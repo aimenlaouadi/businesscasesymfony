@@ -28,10 +28,10 @@ class AppFixtures extends Fixture
             ['type' => 'Blanchisserie', 'description' => 'Retrouvez vos couettes, draps et linge de maison...','images' => 'blanchisserie.jpg'],
             ['type' => 'Rénovation cuir', 'description' => 'Détachage, nettoyage, re-coloration...','images' => 'renov-cuir.webp'],
             ['type' => 'Repassage', 'description' => 'Nous vous proposons un service de repassage...','images' => 'repassage.jpg'],
-            ['type' => 'Nettoyage à sec', 'description' => 'Il s\'agit d\'un traitement de nettoyage professionnel utilisant des solvants pour éliminer les taches et la saleté des tissus délicats.', 'images' => 'basket.webp'],
-            ['type' => 'Nettoyage de tissus délicats', 'description' => 'Les vêtements et textiles délicats tels que la soie, le cachemire et la laine sont nettoyés avec des techniques spéciales pour éviter tout dommage.', 'images' => ' delicats.jpg'],
-            ['type' => 'Nettoyage de cuir et daim', 'description' => 'Les vêtements en cuir et en daim nécessitent un nettoyage spécial pour éviter les dommages et le vieillissement prématuré du matériau.', 'images' => 'cuir-daim.jpg'],
-            ['type' => 'Nettoyage de tapis et rideaux', 'description' => 'Les tapis et les rideaux peuvent être nettoyés en profondeur pour éliminer les taches, la saleté et les odeurs.', 'images' => 'tapis-rideaux.jpg'],
+            ['type' => 'Nettoyage professionnel à sec', 'description' => 'Il s\'agit d\'un traitement de nettoyage professionnel utilisant des produits et des solvants pour éliminer les taches et la saleté des tissus délicats,.', 'images' => 'sec.webp'],
+            ['type' => 'Nettoyage de tissus délicats', 'description' => 'Les vêtements et textiles délicats tels que la soie, le cachemire et la laine sont nettoyés avec des techniques spéciales pour éviter tout dommage.', 'images' => 'delicats.webp'],
+            ['type' => 'Nettoyage de cuir et daim', 'description' => 'Les vêtements en cuir et en daim nécessitent un nettoyage spécial pour éviter les dommages et le vieillissement prématuré du matériau.', 'images' => 'cuir-daim.webp'],
+            ['type' => 'Nettoyage de tapis et rideaux', 'description' => 'Les tapis et les rideaux peuvent être nettoyés en profondeur pour éliminer les taches, la saleté et les odeurs incrustés.', 'images' => 'tapis-rideaux.webp'],
 
         
         ];
