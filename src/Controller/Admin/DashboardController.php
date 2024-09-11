@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Contact;
+use App\Entity\Employee;
 use App\Entity\Items;
 use App\Entity\Order;
 use App\Entity\Product;
@@ -40,12 +41,14 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('items', 'fa fa-tag', Items::class)->setPermission('ROLE_ADMIN');
         yield MenuItem::linkToCrud('StatusItems', 'fa-solid fa-signal', StatusItems::class)->setPermission('ROLE_ADMIN');
 
+        yield MenuItem::section('Account')->setPermission('ROLE_ADMIN');
+        yield MenuItem::linkToCrud('Employee', 'fa-regular fa-adress-card', Employee::class)->setPermission('ROLE_ADMIN');
+        yield MenuItem::linkToCrud('User', 'fa fa-tag', User::class)->setPermission('ROLE_ADMIN');
+
+
         yield MenuItem::section('Product & Services')->setPermission('ROLE_ADMIN');
         yield MenuItem::linkToCrud('Product', 'fa fa-tag', Product::class)->setPermission('ROLE_ADMIN');
         yield MenuItem::linkToCrud('Service', 'fa fa-tag', Service::class)->setPermission('ROLE_ADMIN');
-
-        yield MenuItem::section('User')->setPermission('ROLE_ADMIN');
-        yield MenuItem::linkToCrud('User', 'fa fa-tag', User::class)->setPermission('ROLE_ADMIN');
 
         yield MenuItem::section('Contact');
         yield MenuItem::linkToCrud('Contact', 'fa fa-tag', Contact::class);
