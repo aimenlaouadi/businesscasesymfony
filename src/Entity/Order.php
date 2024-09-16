@@ -38,6 +38,14 @@ class Order
     #[Groups(['order:read'])]
     private ?User $user = null;
 
+    #[ORM\Column(length: 255)]
+    #[Groups(['order:read'])]
+    private ?string $depotDate = null;
+
+    #[ORM\Column(length: 255)]
+    #[Groups(['order:read'])]
+    private ?string $paymentMethod = null;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -100,6 +108,30 @@ class Order
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDepotDate(): ?string
+    {
+        return $this->depotDate;
+    }
+
+    public function setDepotDate(string $depotDate): static
+    {
+        $this->depotDate = $depotDate;
+
+        return $this;
+    }
+
+    public function getPaymentMethod(): ?string
+    {
+        return $this->paymentMethod;
+    }
+
+    public function setPaymentMethod(string $paymentMethod): static
+    {
+        $this->paymentMethod = $paymentMethod;
 
         return $this;
     }
