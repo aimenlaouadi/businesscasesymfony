@@ -2,7 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Controller\Admin\Traits\ViewAndDeleteTrait;
 use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -12,9 +14,19 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UserCrudController extends AbstractCrudController
 {
+
+    use ViewAndDeleteTrait;
     public static function getEntityFqcn(): string
     {
         return User::class;
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInSingular('Item')
+            ->setEntityLabelInPlural('Items')
+            ->setPageTitle(Crud::PAGE_INDEX, 'Liste des Items');
     }
 
     public function configureFields(string $pageName): iterable
