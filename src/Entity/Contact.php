@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ContactRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -36,8 +37,9 @@ class Contact
     #[Assert\NotBlank]
     private ?string $message = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $objet = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $object = null;
 
     public function getId(): ?int
     {
@@ -92,14 +94,14 @@ class Contact
         return $this;
     }
 
-    public function getObjet(): ?string
+    public function getObject(): ?string
     {
-        return $this->objet;
+        return $this->object;
     }
 
-    public function setObjet(?string $objet): static
+    public function setObject(?string $object): static
     {
-        $this->objet = $objet;
+        $this->object = $object;
 
         return $this;
     }
