@@ -36,6 +36,9 @@ class Contact
     #[Assert\NotBlank]
     private ?string $message = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $objet = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,4 +91,17 @@ class Contact
 
         return $this;
     }
+
+    public function getObjet(): ?string
+    {
+        return $this->objet;
+    }
+
+    public function setObjet(?string $objet): static
+    {
+        $this->objet = $objet;
+
+        return $this;
+    }
+
 }
