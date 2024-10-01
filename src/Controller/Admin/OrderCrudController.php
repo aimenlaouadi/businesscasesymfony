@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Controller\Admin\Traits\EditTrait;
 use App\Controller\Admin\Traits\ViewTrait;
 use App\Entity\Order;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -13,6 +14,7 @@ class OrderCrudController extends AbstractCrudController
 {
 
     use ViewTrait;
+    use EditTrait;
     
 
     public static function getEntityFqcn(): string

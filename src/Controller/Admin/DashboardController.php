@@ -40,7 +40,7 @@ class DashboardController extends AbstractDashboardController
        
         yield MenuItem::linkToCrud('Items', 'fa fa-tag', Items::class);
 
-        yield MenuItem::linkToCrud('Changer Statut', 'fa-solid fa-signal', StatusItems::class)->setPermission('ROLE_ADMIN');;
+        yield MenuItem::linkToCrud('Changer Statut', 'fa-solid fa-signal', StatusItems::class)->setPermission('ROLE_ADMIN');
     
         // Section Account - accessible uniquement aux admins
         yield MenuItem::section('Account')->setPermission('ROLE_ADMIN');
