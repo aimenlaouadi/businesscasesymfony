@@ -20,17 +20,18 @@ class Order
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['order:read'])]
+    #[Groups(['order:read', 'user:read'])]
+
     private ?int $id = null;
 
 
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Groups(['order:read'])]
+    #[Groups(['order:read', 'user:read'])]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\OneToMany(mappedBy: 'orderItems', targetEntity: Items::class, cascade: ['persist', 'remove'])]
-    #[Groups(['order:read'])]
+    #[Groups(['order:read', 'user:read'])]
     private Collection $items;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
@@ -39,11 +40,13 @@ class Order
     private ?User $user = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['order:read'])]
+    #[Groups(['order:read', 'user:read'])]
+
     private ?string $depotDate = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['order:read'])]
+    #[Groups(['order:read', 'user:read'])]
+
     private ?string $paymentMethod = null;
 
     public function __construct()

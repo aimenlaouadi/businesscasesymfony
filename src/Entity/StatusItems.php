@@ -7,23 +7,28 @@ use App\Repository\StatusItemsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: StatusItemsRepository::class)]
-#[ApiResource]
+#[ApiResource
+]
 class StatusItems
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['user:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['user:read'])]
     private ?string $type = null;
 
     /**
      * @var Collection<int, Items>
      */
     #[ORM\OneToMany(targetEntity: Items::class, mappedBy: 'statusItems')]
+   
     private Collection $items;
 
     public function __construct()

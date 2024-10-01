@@ -18,20 +18,20 @@ class Items
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['items:read', 'items:write'])]
+    #[Groups(['items:read', 'items:write', 'user:read'])]
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(['items:read', 'items:write'])]
+    #[Groups(['items:read', 'items:write', 'user:read'])]
     private ?float $price = null;
 
     #[ORM\Column]
-    #[Groups(['items:read', 'items:write'])]
+    #[Groups(['items:read', 'items:write', 'user:read'])]
     private ?int $quantite = null;
 
     #[ORM\ManyToOne(inversedBy: 'items')]
     #[ORM\JoinColumn(nullable: true)] // Ajout de JoinColumn pour éviter les erreurs de clé étrangère
-    #[Groups(['items:read', 'items:write'])]
+    #[Groups(['items:read', 'items:write', 'user:read'])]
     private ?StatusItems $statusItems = null;
 
     #[ORM\ManyToOne(inversedBy: 'items', cascade: ['persist'], fetch: 'EAGER')]
@@ -42,11 +42,11 @@ class Items
 
 
     #[ORM\ManyToOne(inversedBy: 'items')]
-    #[Groups(['items:read', 'items:write'])]
+    #[Groups(['items:read', 'items:write', 'user:read'])]
     private ?Service $service = null;
 
     #[ORM\ManyToOne(inversedBy: 'items')]
-    #[Groups(['items:read', 'items:write'])]
+    #[Groups(['items:read', 'items:write', 'user:read'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Product $product = null;
 
