@@ -9,21 +9,21 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
-#[ApiResource(normalizationContext: ["groups" => ["products:read"]])]
+#[ApiResource]
 class Product
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups('products:read')]
+    #[Groups('service:read')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups('products:read')]
+    #[Groups( 'service:read')]
     private ?string $product_name = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups('products:read')]
+    #[Groups( 'service:read')]
     private ?string $product_description = null;
 
     #[ORM\ManyToMany(targetEntity: Service::class, inversedBy: 'products')]
@@ -31,7 +31,7 @@ class Product
     private Collection $services;
 
     #[ORM\Column]
-    #[Groups('products:read')]
+    #[Groups( 'service:read')]
     private ?float $price = null;
 
     /**
@@ -44,7 +44,7 @@ class Product
     private int $quantity = 0;
 
     #[ORM\Column(length: 255)]
-    #[Groups('products:read')]
+    #[Groups( 'service:read')]
     private ?string $images = null;
 
     public function __construct()
