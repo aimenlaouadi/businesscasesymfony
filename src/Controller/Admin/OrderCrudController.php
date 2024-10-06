@@ -8,6 +8,7 @@ use App\Entity\Order;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 
 
 class OrderCrudController extends AbstractCrudController
@@ -35,5 +36,6 @@ class OrderCrudController extends AbstractCrudController
             ->setEntityLabelInPlural('Orders')
             ->setPageTitle(Crud::PAGE_INDEX, 'Liste des Orders');
     }
+
 
 }

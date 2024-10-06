@@ -38,6 +38,7 @@ class Order
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['order:read'])]
     private ?User $user = null;
+    
 
     #[ORM\Column(length: 255)]
     #[Groups(['order:read', 'user:read'])]
