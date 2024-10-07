@@ -32,7 +32,7 @@ class Items
     #[Groups(['items:read', 'user:read'])]
     private ?StatusItems $statusItems = null;
 
-    #[ORM\ManyToOne(inversedBy: 'items', cascade: ['persist'], fetch: 'EAGER')]
+    #[ORM\ManyToOne(inversedBy: 'items', cascade: ['persist','remove'], fetch: 'EAGER')]
     #[ORM\JoinColumn(nullable: false)]
    
     private ?Order $orderItems = null;
