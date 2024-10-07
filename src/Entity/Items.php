@@ -10,28 +10,26 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: ItemsRepository::class)]
 #[ApiResource(
     normalizationContext: ['groups' => ['items:read']],
-
-    
 )]
 class Items
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['user:read', 'order:read'])]
+    #[Groups(['items:read', 'user:read'])]
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(['user:read', 'order:read'])]
+    #[Groups(['items:read', 'user:read'])]
     private ?float $price = null;
 
     #[ORM\Column]
-    #[Groups(['user:read', 'order:read'])]
+    #[Groups(['items:read', 'user:read'])]
     private ?int $quantite = null;
 
     #[ORM\ManyToOne(inversedBy: 'items')]
     #[ORM\JoinColumn(nullable: true)] // Ajout de JoinColumn pour éviter les erreurs de clé étrangère
-    #[Groups(['user:read', 'order:read'])]
+    #[Groups(['items:read', 'user:read'])]
     private ?StatusItems $statusItems = null;
 
     #[ORM\ManyToOne(inversedBy: 'items', cascade: ['persist'], fetch: 'EAGER')]
@@ -42,10 +40,11 @@ class Items
 
 
     #[ORM\ManyToOne(inversedBy: 'items')]
-        private ?Service $service = null;
+    #[Groups(['items:read', 'user:read'])]
+    private ?Service $service = null;
 
     #[ORM\ManyToOne(inversedBy: 'items')]
-    
+    #[Groups(['items:read', 'user:read'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Product $product = null;
 

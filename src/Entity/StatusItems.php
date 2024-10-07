@@ -16,11 +16,11 @@ class StatusItems
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['user:read', 'order:read'])]
+    #[Groups('user:read')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['user:read', 'order:read'])]
+    #[Groups('user:read')]
     private ?string $type = null;
 
     /**
