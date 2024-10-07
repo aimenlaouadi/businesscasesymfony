@@ -9,42 +9,41 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
-#[ApiResource]
+#[ApiResource()]
 class Product
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups('service:read')]
+    // #[Groups( 'service:read')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups( 'service:read')]
+    // #[Groups( 'service:read')]
     private ?string $product_name = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups( 'service:read')]
+    // #[Groups( 'service:read')]
     private ?string $product_description = null;
 
     #[ORM\ManyToMany(targetEntity: Service::class, inversedBy: 'products')]
-    #[Groups('products:read')]
     private Collection $services;
 
     #[ORM\Column]
-    #[Groups( 'service:read')]
+    // #[Groups( 'service:read')]
     private ?float $price = null;
 
     /**
      * @var Collection<int, Items>
      */
-    #[ORM\OneToMany(targetEntity: Items::class, mappedBy: 'Product')]
+    #[ORM\OneToMany(targetEntity: Items::class, mappedBy: 'product')]
     private Collection $items;
 
     #[ORM\Column(type: 'integer', options: ['default' => 0])]
     private int $quantity = 0;
 
     #[ORM\Column(length: 255)]
-    #[Groups( 'service:read')]
+    // #[Groups( 'service:read')]
     private ?string $images = null;
 
     public function __construct()

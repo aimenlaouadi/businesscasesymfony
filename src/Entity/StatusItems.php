@@ -10,18 +10,17 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: StatusItemsRepository::class)]
-#[ApiResource
-]
+#[ApiResource]
 class StatusItems
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['user:read',  'items:read'])]
+    #[Groups(['user:read', 'order:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['user:read',  'items:read'])]
+    #[Groups(['user:read', 'order:read'])]
     private ?string $type = null;
 
     /**

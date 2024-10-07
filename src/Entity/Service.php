@@ -14,21 +14,21 @@ class Service
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['service:read', 'product:read'])] // Ajouté pour inclure l'ID dans les réponses de produit et service
+    #[Groups('service:read')] // Ajouté pour inclure l'ID dans les réponses de produit et service
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['service:read', 'product:read'])] // Ajouté pour inclure dans les réponses de produit et service
+    #[Groups('service:read')] // Ajouté pour inclure dans les réponses de produit et service
     private ?string $service_type = null;
 
 
 
     #[ORM\Column(length: 255)]
-    #[Groups(['service:read', 'product:read'])] // Ajouté pour inclure dans les réponses de produit et service
+    #[Groups('service:read')] // Ajouté pour inclure dans les réponses de produit et service
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['service:read', 'product:read'])] // Ajouté pour inclure dans les réponses de produit et service
+    #[Groups('service:read')] // Ajouté pour inclure dans les réponses de produit et service
     private ?string $images = null;
 
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'services')]
