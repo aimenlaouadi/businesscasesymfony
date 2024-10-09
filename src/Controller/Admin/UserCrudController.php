@@ -47,6 +47,7 @@ class UserCrudController extends AbstractCrudController
                 ->setChoices([
                     'Administrateur' => 'ROLE_ADMIN',
                     'Utilisateur' => 'ROLE_USER',
+                    'Employé' => 'ROLE_EMPLOYEE',
                 ])
                 ->allowMultipleChoices()
 

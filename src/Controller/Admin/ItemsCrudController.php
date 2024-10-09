@@ -57,7 +57,7 @@ class ItemsCrudController extends AbstractCrudController
 
     public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
     {
-        // Utilisation de Doctrine\ORM\QueryBuilder au lieu de Doctrine\DBAL\Query\QueryBuilder
+        
         $qb = parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters);
     
         if ($this->security->isGranted('ROLE_EMPLOYEE')) {
